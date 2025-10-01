@@ -1,0 +1,42 @@
+name: mpepo_kitchen_pos
+description: Smart Point-of-Sale system for Mpepo Kitchen
+publish_to: 'none'
+version: 1.0.0+1
+
+environment:
+  sdk: '>=3.0.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+
+  # State Management
+  provider: ^6.1.1
+
+  # HTTP & API
+  http: ^1.1.0
+  dio: ^5.4.0
+
+  # Local Storage
+  shared_preferences: ^2.2.2
+  sqflite: ^2.3.0
+  path_provider: ^2.1.1
+
+  # Connectivity
+  connectivity_plus: ^5.0.2
+
+  # UI
+  cupertino_icons: ^1.0.2
+  intl: ^0.18.1
+
+  # PDF Generation for Receipts
+  pdf: ^3.10.7
+  printing: ^5.11.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true
