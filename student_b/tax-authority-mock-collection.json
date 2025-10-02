@@ -1,0 +1,157 @@
+{
+	"info": {
+		"_postman_id": "6fee43d0-39b5-4df6-86cf-940591e85867",
+		"name": "Tax Authority Mock API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "48689722",
+		"_collection_link": "https://lwambulaoctavia-8886213.postman.co/workspace/dc06ef3c-1248-4fbd-8827-51d5d63cdb32/collection/48689722-6fee43d0-39b5-4df6-86cf-940591e85867?action=share&source=collection_link&creator=48689722"
+	},
+	"item": [
+		{
+			"name": "Submit Invoice",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"pm.response.json({\r",
+							"    \"status\": \"success\",\r",
+							"    \"message\": \"IT WORKS!\",\r",
+							"    \"id\": \"123\"\r",
+							"});"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "/submit-invoice",
+					"path": [
+						"submit-invoice"
+					]
+				}
+			},
+			"response": [
+				{
+					"name": "Success Example",
+					"originalRequest": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "/submit-invoice",
+							"path": [
+								"submit-invoice"
+							]
+						}
+					},
+					"_postman_previewlanguage": null,
+					"header": null,
+					"cookie": [],
+					"body": null
+				}
+			]
+		},
+		{
+			"name": "Get Invoice Status",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var invoiceId = pm.request.url.query.get(\"invoice_id\");\r",
+							"\r",
+							"pm.response.json({\r",
+							"    \"invoice_id\": invoiceId,\r",
+							"    \"status\": \"approved\",\r",
+							"    \"submission_date\": \"2025-09-23T10:30:00Z\",\r",
+							"    \"tax_amount_verified\": 4.80,\r",
+							"    \"authority_notes\": \"Invoice processed successfully\"\r",
+							"});\r",
+							"\r",
+							""
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "/invoice-status/{{invoice_id}}",
+					"path": [
+						"invoice-status",
+						"{{invoice_id}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Validate Business TIN",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var tin = pm.request.url.query.get(\"tin_number\");\r",
+							"\r",
+							"if (tin && tin.startsWith(\"BUS-\")) {\r",
+							"    pm.response.json({\r",
+							"        \"valid\": true,\r",
+							"        \"business_name\": \"Mpepo Kitchen\",\r",
+							"        \"registration_status\": \"active\"\r",
+							"    });\r",
+							"} else {\r",
+							"    pm.response.json({\r",
+							"        \"valid\": false,\r",
+							"        \"error\": \"Invalid TIN format\"\r",
+							"    });\r",
+							"}"
+						],
+						"type": "text/javascript",
+						"packages": {},
+						"requests": {}
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "/validate-tin/{{tin_number}}",
+					"path": [
+						"validate-tin",
+						"{{tin_number}}"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
