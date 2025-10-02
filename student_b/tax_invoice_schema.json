@@ -1,0 +1,123 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "TaxInvoice",
+  "description": "Invoice schema for Mpepo Kitchen tax submissions",
+  "type": "object",
+  "properties": {
+    "invoice_id": {
+      "type": "string",
+      "description": "Unique identifier for the invoice",
+      "example": "MPEPO-INV-2025-00123"
+    },
+    "business_info": {
+      "type": "object",
+      "description": "Business information",
+      "properties": {
+        "tin": {
+          "type": "string",
+          "description": "Tax Identification Number",
+          "example": "BUS-123456789"
+        },
+        "business_name": {
+          "type": "string",
+          "example": "Mpepo Kitchen"
+        },
+        "address": {
+          "type": "string",
+          "example": "123 Restaurant Street, Nairobi"
+        }
+      },
+      "required": ["tin", "business_name"]
+    },
+    "customer_info": {
+      "type": "object",
+      "properties": {
+        "tin": {
+          "type": "string",
+          "example": "CUST-987654321"
+        },
+        "customer_type": {
+          "type": "string",
+          "enum": ["individual", "business", "anonymous"],
+          "example": "individual"
+        }
+      }
+    },
+    "transaction_date": {
+      "type": "string",
+      "format": "date-time",
+      "example": "2025-09-23T14:30:00Z"
+    },
+    "items": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "item_id": {
+            "type": "string",
+            "example": "MEAL-001"
+          },
+          "description": {
+            "type": "string",
+            "example": "Chicken Meal with Fries"
+          },
+          "quantity": {
+            "type": "number",
+            "minimum": 0.01,
+            "example": 2
+          },
+          "unit_price": {
+            "type": "number",
+            "minimum": 0,
+            "example": 15.00
+          },
+          "tax_rate": {
+            "type": "number",
+            "minimum": 0,
+            "maximum": 1,
+            "example": 0.16
+          }
+        },
+        "required": ["description", "quantity", "unit_price", "tax_rate"]
+      }
+    },
+    "summary": {
+      "type": "object",
+      "properties": {
+        "subtotal": {
+          "type": "number",
+          "minimum": 0,
+          "example": 30.00
+        },
+        "tax_amount": {
+          "type": "number",
+          "minimum": 0,
+          "example": 4.80
+        },
+        "discount_amount": {
+          "type": "number",
+          "minimum": 0,
+          "example": 0.00
+        },
+        "total_amount": {
+          "type": "number",
+          "minimum": 0,
+          "example": 34.80
+        },
+        "currency": {
+          "type": "string",
+          "pattern": "^[A-Z]{3}$",
+          "example": "KES"
+        }
+      },
+      "required": ["subtotal", "tax_amount", "total_amount", "currency"]
+    }
+  },
+  "required": [
+    "invoice_id",
+    "business_info", 
+    "transaction_date",
+    "items",
+    "summary"
+  ]
+}
